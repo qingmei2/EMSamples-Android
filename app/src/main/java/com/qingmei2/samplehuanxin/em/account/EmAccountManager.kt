@@ -1,9 +1,12 @@
 package com.qingmei2.samplehuanxin.em.account
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.util.Log
 import com.hyphenate.EMCallBack
 import com.hyphenate.chat.EMClient
+import org.jetbrains.anko.runOnUiThread
+import org.jetbrains.anko.toast
 import org.jetbrains.annotations.NotNull
 
 
@@ -13,7 +16,27 @@ import org.jetbrains.annotations.NotNull
  */
 class EmAccountManager(val application: Context) : IEmAccountManager {
 
-    private val TAG = "EmAccountManager"
+    val sp: SharedPreferences = application.getSharedPreferences("accountInfo", Context.MODE_PRIVATE)
+
+    companion object {
+        const val spUserName = "EM_ACCOUNT_USER_NAME"
+        const val spPassword = "EM_ACCOUNT_USER_PWD"
+        const val TAG = "EmAccountManager"
+    }
+
+    override fun getAccountInfo(): EmAccountInfo {
+        val userName = sp.getString(spUserName, "")
+        val password = sp.getString(spPassword, "")
+        return EmAccountInfo(userName, password)
+    }
+
+    override fun saveAccountInfo(@NotNull account: EmAccountInfo) {
+        sp.edit().apply {
+            putString(spUserName, account.userName)
+            putString(spPassword, account.pwd)
+            apply()
+        }
+    }
 
     override fun regist(@NotNull userName: String,
                         @NotNull password: String) {
@@ -30,6 +53,9 @@ class EmAccountManager(val application: Context) : IEmAccountManager {
                 EMClient.getInstance().groupManager().loadAllGroups()
                 EMClient.getInstance().chatManager().loadAllConversations()
                 Log.d(TAG, "登录聊天服务器成功！")
+                application.runOnUiThread {
+                    application.toast("$userName 登录成功！")
+                }
             }
 
             override fun onProgress(progress: Int, status: String) {
@@ -38,6 +64,9 @@ class EmAccountManager(val application: Context) : IEmAccountManager {
 
             override fun onError(code: Int, message: String) {
                 Log.d(TAG, "登录聊天服务器失败！")
+                application.runOnUiThread {
+                    application.toast("$userName 登录失败！")
+                }
             }
         })
     }

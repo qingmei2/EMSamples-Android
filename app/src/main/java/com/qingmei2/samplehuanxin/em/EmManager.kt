@@ -5,6 +5,7 @@ import android.content.Context
 import android.util.Log
 import com.hyphenate.chat.EMClient
 import com.hyphenate.chat.EMOptions
+import com.qingmei2.samplehuanxin.em.account.EmAccountInfo
 import com.qingmei2.samplehuanxin.em.account.EmAccountManager
 import com.qingmei2.samplehuanxin.em.account.IEmAccountManager
 import com.qingmei2.samplehuanxin.em.message.EmMessageManager
@@ -90,12 +91,13 @@ class EmManager(val application: Context) : IEmAccountManager, IEmMessageManager
         messageManager.singleAudio(filePath, length, password)
     }
 
-    override fun startReceiveMessage() {
-        messageManager.startReceiveMessage()
-    }
+    override fun startReceiveMessage() = messageManager.startReceiveMessage()
 
-    override fun stopReceiveMessage() {
-        messageManager.stopReceiveMessage()
-    }
+    override fun stopReceiveMessage() = messageManager.stopReceiveMessage()
+
+    override fun saveAccountInfo(account: EmAccountInfo) = accoutManager.saveAccountInfo(account)
+
+    override fun getAccountInfo(): EmAccountInfo = accoutManager.getAccountInfo()
+
 
 }
