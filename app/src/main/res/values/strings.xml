@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">SampleHuanXin</string>
+
+    <string name="Is_the_registered">Registering</string>
+    <string name="network_anomalies">Network is not available, please check the network!</string>
+    <string name="User_already_exists">User already existed!</string>
+    <string name="registration_failed_without_permission">Registration failed, without permission!</string>
+    <string name="Registration_failed">Registration failed</string>
+    <string name="Registered_successfully">Registered successfully</string>
+    <string name="illegal_user_name">Illegal user name</string>
+
+    <string name="Send_voice_need_sdcard_support">Send voice need sdcard support</string>
+    <string name="move_up_to_cancel">Finger up to cancel sending</string>
+    <string name="recoding_fail">The recording failure, please try again！</string>
+    <string name="release_to_cancel">Finger release to cancel sending</string>
+    <string name="Recording_without_permission">Recording without permission</string>
+    <string name="The_recording_time_is_too_short">The recording time is too short</string>
+    <string name="send_failure_please">Send failure, please test whether the server connection</string>
+</resources>
